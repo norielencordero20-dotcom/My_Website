@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Login & Sign Up Page</title>
+ <link rel="stylesheet" href="login_style.css">
+ <style>
+    /* Animated Midnight Starlit Background */
+    body {
+        font-family: Trebuchet MS, sans-serif;    
+        margin: 0;    
+        padding: 0; 
+        background: linear-gradient(to bottom, #090d16, #111827, #1e1b4b); /* Midnight / Dusk Night gradient */
+        background-size: 400% 400%;
+        position: relative;
+        overflow-x: hidden;
+        color: #f8fafc;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+   } 
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.25) 40px, transparent 41px),
+            radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.2) 60px, transparent 61px),
+            radial-gradient(circle at 75% 30%, rgba(255, 255, 255, 0.25) 50px, transparent 51px),
+            radial-gradient(circle at 85% 28%, rgba(255, 255, 255, 0.2) 70px, transparent 71px);
+        background-repeat: repeat-x;
+        background-size: 800px 400px;
+        animation: driftClouds 60s linear infinite;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 120px;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 40px rgba(248, 250, 252, 0.6), 0 0 80px rgba(203, 213, 225, 0.3);
+        z-index: -2;
+    }
+
+    @keyframes driftClouds {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -800px 0;
+        }
+    }
+
+    /* Form Container Dark Styling Overrides */
+    .form-container {
+        background-color: #1e293b !important;
+        color: #f8fafc !important;
+        border: 1px solid #334155;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="password"] {
+        background-color: #0f172a !important;
+        color: #f8fafc !important;
+        border: 1px solid #475569 !important;
+    }
+
+    .form-container button {
+        background-color: #3b82f6 !important;
+        color: white !important;
+    }
+
+    .form-container button:hover {
+        background-color: #a855f7 !important;
+    }
+
+    .form-container a {
+        color: #3b82f6 !important;
+    }
+
+    #errorMessage {
+        color: #f43f5e !important;
+    }
+ </style>
+</head>
+<body>
+<div class="rain-container" id="rainContainer"></div>
+ 
+ <div class="form-container">
+  <h2 id="formTitle">Login</h2>
+  <form id="authForm">
+   <label for="username">Username</label>
+   <input type="text" id="username" required>
+   
+   <label for="password">Password</label>
+   <input type="password" id="password" required>
+   
+   <!-- Show Password Checkbox (only for Login) -->
+   <div class="show-password" id="showPasswordContainer">
+    <input type="checkbox" id="showPassword" onclick="togglePasswordVisibility()">
+    <label for="showPassword">Show Password</label>
+   </div>
+   
+   <!-- Confirm password field for sign-up form -->
+   <label for="confirmPassword" id="confirmPasswordLabel" style="display: none;">Confirm Password</label>
+   <input type="password" id="confirmPassword" style="display: none;">
+   
+   <!-- Password match message -->
+   <p id="passwordMatchMessage" style="font-size: 14px; color: red; display: none;"></p>
+   <button type="button" onclick="handleSubmit()">Login</button>
+   <p id="errorMessage"></p>
+   
+   <!-- Toggle link to switch between forms -->
+   <p id="toggleText">Don't have an account? <a href="#" onclick="toggleForm()">Sign Up</a></p>
+  </form>
+ </div>
+
+ <!-- Embedded JavaScript -->
+ <script>
+  // Generate random raindrops dynamically
+  const rainContainer = document.getElementById('rainContainer');
+  const dropCount = 60;
+
+  for (let i = 0; i < dropCount; i++) {
+   const drop = document.createElement('div');
+   drop.classList.add('raindrop');
+   drop.style.left = Math.random() * 100 + 'vw';
+   drop.style.top = (Math.random() * -50) + 'px';
+   drop.style.animationDuration = (0.5 + Math.random() * 0.8) + 's';
+   drop.style.animationDelay = (Math.random() * 5) + 's';
+   rainContainer.appendChild(drop);
+  }
+
+  let isLogin = true;
+  function toggleForm() {
+   const formTitle = document.getElementById('formTitle');
+   const confirmPassword = document.getElementById('confirmPassword');
+   const confirmPasswordLabel = document.getElementById('confirmPasswordLabel');
+   const submitButton = document.querySelector('button');
+   const toggleText = document.getElementById('toggleText');
+   const showPasswordContainer = document.getElementById('showPasswordContainer');
+   
+   // Clear form fields when toggling
+   document.getElementById('authForm').reset();
+   document.getElementById('errorMessage').textContent = ''; 
+   
+   if (isLogin) {
+    // Switch to Sign-Up form
+    formTitle.textContent = 'Sign Up';
+    confirmPassword.style.display = 'block';
+    confirmPasswordLabel.style.display = 'block';
+    submitButton.textContent = 'Sign Up';
+    toggleText.innerHTML = 'Already have an account? <a href="#" onclick="toggleForm()">Login</a>';
+    showPasswordContainer.style.visibility = 'hidden'; 
+    isLogin = false;
+   } else {
+    // Switch to Login form
+    formTitle.textContent = 'Login';
+    confirmPassword.style.display = 'none';
+    confirmPasswordLabel.style.display = 'none';
+    submitButton.textContent = 'Login';
+    toggleText.innerHTML = 'Don\'t have an account? <a href="#" onclick="toggleForm()">Sign Up</a>';
+    showPasswordContainer.style.visibility = 'visible'; 
+    isLogin = true;
+   }
+  }
+
+  function handleSubmit() {
+   const username = document.getElementById('username').value;
+   const password = document.getElementById('password').value;
+   const errorMessage = document.getElementById('errorMessage');
+   
+   if (isLogin) {
+    const storedUsername = localStorage.getItem('username');
+    const storedPassword = localStorage.getItem('password');
+    if (username === storedUsername && password === storedPassword) {
+     alert('Welcome! Successfully logged in.'); 
+     window.location.href = 'index.html'; 
+    } else {
+     errorMessage.textContent = 'Invalid username or password';
+    }
+   } else {
+    const confirmPassword = document.getElementById('confirmPassword').value;
+    if (password !== confirmPassword) {
+     errorMessage.textContent = 'Passwords do not match';
+    } else if (username && password) {
+     localStorage.setItem('username', username);
+     localStorage.setItem('password', password);
+     alert('Account created successfully! You can now log in.');
+     document.getElementById('authForm').reset();
+     toggleForm(); 
+    } else {
+     errorMessage.textContent = 'Please fill out all fields';
+    }
+   }
+  }
+
+  function togglePasswordVisibility() {
+   const passwordField = document.getElementById('password');
+   if (passwordField.type === 'password') {
+    passwordField.type = 'text';
+   } else {
+    passwordField.type = 'password';
+   }
+  }
+
+  document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
+  function checkPasswordMatch() {
+   const password = document.getElementById('password').value;
+   const confirmPassword = document.getElementById('confirmPassword').value;
+   const message = document.getElementById('passwordMatchMessage');
+   if (confirmPassword === "") {
+    message.style.display = 'none';
+   } else if (confirmPassword === password) {
+    message.textContent = 'Passwords match';
+    message.style.color = 'green';
+    message.style.display = 'block';
+   } else {
+    message.textContent = 'Passwords do not match';
+    message.style.color = 'red';
+    message.style.display = 'block';
+   }
+  }
+ </script>
+</body> 
+</html>
+

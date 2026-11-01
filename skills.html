@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Skills I'm Developing</title>
+ <link rel="stylesheet" href="style.css">
+ <style>
+    /* Animated Midnight Starlit Background */
+    body {
+        font-family: Trebuchet MS, sans-serif;    
+        margin: 0;    
+        padding: 0; 
+        background: linear-gradient(to bottom, #090d16, #111827, #1e1b4b); /* Midnight / Dusk Night gradient */
+        background-size: 400% 400%;
+        position: relative;
+        overflow-x: hidden;
+        color: #f8fafc;
+   } 
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.25) 40px, transparent 41px),
+            radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.2) 60px, transparent 61px),
+            radial-gradient(circle at 75% 30%, rgba(255, 255, 255, 0.25) 50px, transparent 51px),
+            radial-gradient(circle at 85% 28%, rgba(255, 255, 255, 0.2) 70px, transparent 71px);
+        background-repeat: repeat-x;
+        background-size: 800px 400px;
+        animation: driftClouds 60s linear infinite;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 120px;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 40px rgba(248, 250, 252, 0.6), 0 0 80px rgba(203, 213, 225, 0.3);
+        z-index: -2;
+    }
+
+    @keyframes driftClouds {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -800px 0;
+        }
+    }
+ </style>
+</head>
+<body>
+ <header>
+<h1>Welcome to My Personal Website</h1>
+ </header>
+ <nav>
+<ul>
+<li><a href="index.html">HOME</a></li>
+<li class="dropdown">
+<a href="#" class="dropbtn">ABOUT</a>
+<div class="dropdown-content">
+<a href="skills.html">Skills I'm Developing</a>
+<a href="goals.html">My Goals as a Student</a>
+<a href="funfacts.html">Fun Facts About Me</a>
+</div>
+</li>
+<li><a href="gallery.html">GALLERY</a></li>
+<li><a href="contact.html">CONTACT</a></li>
+<a href="javascript:void(0);" class="logout-button" onclick="confirmLogout()">LOG 
+OUT</a>
+</ul>
+</nav>
+ <section id="section2"></section>
+ <section id="drop">
+<h2>Skills I'm Developing</h2>
+<p>As a student, I’m actively developing a diverse set of skills that reflect my passions 
+in technology and beyond.</p>
+ 
+ <section id="skills">
+ 
+<div class="tab">
+<button class="tablinks" onclick="openTab(event, 'IT')">Information 
+Technology</button>
+<button class="tablinks" onclick="openTab(event, 'GraphicDesign')">Graphic 
+Design</button>
+<button class="tablinks" onclick="openTab(event, 'WindowsInstallations')">Windows 
+Installations</button>
+<button class="tablinks" onclick="openTab(event, 'ProblemSolving')">Problem 
+Solving</button>
+</div>
+ 
+<div id="IT" class="tabcontent">
+<h3>Information Technology</h3>
+<ul>
+<li>Mastering front-end web development with <strong>HTML, CSS, and 
+JavaScript</strong></li>
+<li>Learning <strong>responsive design</strong> to create user-friendly 
+experiences across devices</li>
+<li> Creating modern and accessible web interfaces</li>
+</ul>
+</div>
+ 
+<div id="GraphicDesign" class="tabcontent" style="display:none;">
+<h3>Graphic Design</h3>
+<ul>
+    <li>Exploring visual design with tools like <strong>Adobe Illustrator and 
+Canva</strong></li>
+<li>Building skills in branding, layout, and digital illustration</li>
+<li> Combining design with web development for cohesive digital presence</li>
+</ul>
+</div>
+<div id="WindowsInstallations" class="tabcontent" style="display:none;">
+<h3>Windows Installations</h3>
+<ul>
+<li>Installing and configuring <strong>Windows 10 and Windows 11</strong> Operating Systems</li>
+<li>Creating bootable USB media and setting up system partitions</li>
+<li>Troubleshooting installation errors and updating system drivers</li>
+</ul>
+</div>
+<div id="ProblemSolving" class="tabcontent" style="display:none;">
+<h3>Problem Solving and Critical Thinking</h3>
+<ul>
+<li>Enhancing analytical skills through coding challenges and project-based 
+learning</li>
+<li>Focusing on efficient solutions and optimizing workflows in web 
+development</li>
+<li>Building a structured approach to tackling complex problems</li> 
+</ul>
+</div>
+ </section>
+ </section>
+ <footer>
+<p>&copy; 2024 Your Name. All rights reserved.</p>
+</footer>
+<div class="footer-divider"></div> <!-- Orange line -->
+<script>
+function openTab(evt, tabName) {
+ // Get all tab content elements
+ const tabcontents = document.getElementsByClassName("tabcontent");
+ // Hide all tab content
+ for (let i = 0; i < tabcontents.length; i++) {
+ tabcontents[i].style.display = "none";
+ }
+ // Remove "active" class from all tab links
+ const tablinks = document.getElementsByClassName("tablinks");
+ for (let i = 0; i < tablinks.length; i++) {
+ tablinks[i].classList.remove("active");
+ }
+ // Show the current tab
+ document.getElementById(tabName).style.display = "block";
+ evt.currentTarget.classList.add("active");
+}
+// Initially show the first tab content
+document.addEventListener("DOMContentLoaded", function() {
+ document.querySelector('.tablinks').click(); // Simulates a click on the first tab
+});
+</script>
+<script>
+ // Logout function with confirmation
+ function confirmLogout() {
+ // Show a confirmation message to the user
+ const confirmLogout = confirm("Are you sure you want to log out?");
+ 
+ // If the user confirms, proceed with logging out
+ if (confirmLogout) {
+ // Mark the user as logged out in localStorage (if used)
+    localStorage.removeItem('isLoggedIn'); // Or any other keys related to login 
+credentials
+ 
+ // Redirect to the login page
+ window.location.href = 'login.html';
+ } else {
+ // If the user cancels, do nothing
+ return;
+ }
+ }
+ 
+ </script>
+</body>
+</html>

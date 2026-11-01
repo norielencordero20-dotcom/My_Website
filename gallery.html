@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Gallery - Personal Website</title>
+ <link rel="stylesheet" href="style.css">
+ <style>
+    /* Animated Midnight Starlit Background */
+    body {
+        font-family: Trebuchet MS, sans-serif;    
+        margin: 0;    
+        padding: 0; 
+        background: linear-gradient(to bottom, #090d16, #111827, #1e1b4b); /* Midnight / Dusk Night gradient */
+        background-size: 400% 400%;
+        position: relative;
+        overflow-x: hidden;
+        color: #f8fafc;
+   } 
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 200%;
+        height: 100%;
+        background-image: 
+            radial-gradient(circle at 15% 20%, rgba(255, 255, 255, 0.25) 40px, transparent 41px),
+            radial-gradient(circle at 25% 18%, rgba(255, 255, 255, 0.2) 60px, transparent 61px),
+            radial-gradient(circle at 75% 30%, rgba(255, 255, 255, 0.25) 50px, transparent 51px),
+            radial-gradient(circle at 85% 28%, rgba(255, 255, 255, 0.2) 70px, transparent 71px);
+        background-repeat: repeat-x;
+        background-size: 800px 400px;
+        animation: driftClouds 60s linear infinite;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        top: 120px;
+        right: 10%;
+        width: 100px;
+        height: 100px;
+        background: radial-gradient(circle, #f8fafc 0%, #cbd5e1 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 40px rgba(248, 250, 252, 0.6), 0 0 80px rgba(203, 213, 225, 0.3);
+        z-index: -2;
+    }
+
+    @keyframes driftClouds {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: -800px 0;
+        }
+    }
+ </style>
+</head>
+<body>
+ <header>
+<h1>Welcome to My Personal Website</h1>
+ </header>
+ <nav>
+<ul>
+<li><a href="index.html">HOME</a></li>
+<li class="dropdown">
+<a href="#" class="dropbtn">ABOUT</a>
+<div class="dropdown-content">
+<a href="skills.html">Skills I'm Developing</a>
+<a href="goals.html">My Goals as a Student</a>
+<a href="funfacts.html">Fun Facts About Me</a>
+</div>
+</li>
+<li><a href="gallery.html">GALLERY</a></li>
+<li><a href="contact.html">CONTACT</a></li>
+<a href="javascript:void(0);" class="logout-button" onclick="confirmLogout()">LOG 
+OUT</a>
+</ul>
+ </nav>
+ <section id="section2"></section>
+ <section id="gallery">
+<h2>Gallery</h2>
+<p style="text-align: center;">Check out some of the images from my recent 
+photography:</p>
+<div class="gallery">
+<div class="gallery-item">
+<img src="Images/Image1.jpg" alt="Project Image 1" class="thumbnail" onclick="openLightbox(); 
+changeImage('Images/image1.jpg');">
+<p class="image-description">This is me when I was a child who got a bronze medal in regionals with my coach.</p>
+</div>
+<div class="gallery-item">
+<img src="Images/Image2.jpeg" alt="Project Image 2" class="thumbnail" onclick="openLightbox(); 
+changeImage('Images/image2.jpeg');">
+<p class="image-description">I'm hoping again that we will go again in the mountain with my family.</p>
+</div>
+<div class="gallery-item">
+<img src="Images/Image3.jpg" alt="Project Image 3" class="thumbnail" onclick="openLightbox(); 
+changeImage('Images/image3.jpg');">
+<p class="image-description">A peaceful sunset over the quiet ocean, painted in soft shades 
+of pink and purple. </p>
+</div>
+<div class="gallery-item">
+<img src="Images/Image4.jpg" alt="Project Image 3" class="thumbnail" onclick="openLightbox(); 
+changeImage('Images/image4.jpg');">
+<p class="image-description">Life is better when we are making a memories with the great people.</p>
+</div>
+<div class="gallery-item">
+<img src="Images/Image5.jpg" alt="Project Image 3" class="thumbnail" onclick="openLightbox(); 
+changeImage('Images/image5.jpg');">
+<p class="image-description">I miss you mixxy</p>
+</div>
+<div class="gallery-item">
+<img src="Images/Image6.jpeg" alt="Project Image 3" class="thumbnail" onclick="openLightbox(); 
+changeImage('Images/image6.jpeg');">
+<p class="image-description">Not only good in academics, I also exceeds in the sports.</p>
+</div>
+<!-- Add more gallery items as needed -->
+</div>
+<!-- Lightbox container -->
+<div id="lightbox" class="lightbox">
+<span class="close" onclick="closeLightbox()">&times;</span>
+<img class="lightbox-content" id="lightboxImage" src="">
+<a class="prev" onclick="changeImage(-1)">&#10094;</a>
+<a class="next" onclick="changeImage(1)">&#10095;</a>
+</div>
+ </section>
+ <script>
+ // Logout function with confirmation
+ function confirmLogout() {
+ // Show a confirmation message to the user
+ const confirmLogout = confirm("Are you sure you want to log out?");
+ 
+ // If the user confirms, proceed with logging out
+ if (confirmLogout) {
+ // Mark the user as logged out in localStorage (if used)
+ localStorage.removeItem('isLoggedIn'); // Or any other keys related to login 
+credentials
+ 
+ // Redirect to the login page
+ window.location.href = 'login.html';
+ } else {
+ // If the user cancels, do nothing
+ return;
+ }
+ }
+ </script>
+<script>
+let currentImageIndex = 0;
+const images = document.querySelectorAll('.thumbnail'); // Get all the gallery images
+function openLightbox() {
+ document.getElementById('lightbox').style.display = 'block';
+ showImage(currentImageIndex); // Ensure the lightbox opens with the current image
+}
+function closeLightbox() {
+ document.getElementById('lightbox').style.display = 'none';
+}
+function showImage(index) {
+ currentImageIndex = index; // Update the current image index
+ document.getElementById('lightboxImage').src = images[currentImageIndex].src;
+}
+function changeImage(direction) {
+ currentImageIndex += direction;
+ 
+ // Wrap around when at the start or end of the images
+ if (currentImageIndex < 0) {
+ currentImageIndex = images.length - 1;
+ } else if (currentImageIndex >= images.length) {
+ currentImageIndex = 0;
+ }
+ 
+ // Show the new image
+ showImage(currentImageIndex);
+}
+// Set each thumbnail to open the lightbox with its corresponding image
+images.forEach((img, index) => {
+ img.addEventListener('click', () => showImage(index));
+});
+</script>
+ <footer>
+<p>&copy; 2024 Your Name. All rights reserved.</p>
+</footer>
+<div class="footer-divider"></div>
+</body>
+</html>
